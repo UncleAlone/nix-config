@@ -1,0 +1,282 @@
+error: store path '/nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040' is not allowed to have references
+
+       … while adding path '/nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/os-specific/darwin/print-reexports'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/lib/sources.nix:242:17:
+
+          241|       inherit origSrc filter name;
+          242|       outPath = builtins.path { inherit filter name; path = origSrc; };
+             |                 ^
+          243|     };
+
+       … while evaluating the attribute 'src' of the derivation 'print-reexports'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating the attribute 'nativeBuildInputs' of the derivation 'apple-framework-CFNetwork'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating 'escapeShellArg'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/lib/strings.nix:318:20:
+
+          317|   */
+          318|   escapeShellArg = arg: "'${replaceStrings ["'"] ["'\\''"] (toString arg)}'";
+             |                    ^
+          319|
+
+       … from call site
+
+       … while evaluating 'concatMapStringsSep'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/lib/strings.nix:110:5:
+
+          109|     # List of input strings
+          110|     list: concatStringsSep sep (map f list);
+             |     ^
+          111|
+
+       … from call site
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/os-specific/darwin/apple-sdk/default.nix:60:6:
+
+           59|     substArgs = lib.concatMap (x: [ "--subst-var-by" x deps'."${x}" ]) (lib.attrNames deps');
+           60|   in lib.escapeShellArgs substArgs;
+             |      ^
+           61|
+
+       … while evaluating 'mkFrameworkSubs'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/os-specific/darwin/apple-sdk/default.nix:56:27:
+
+           55|
+           56|   mkFrameworkSubs = name: deps:
+             |                           ^
+           57|   let
+
+       … from call site
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/os-specific/darwin/apple-sdk/default.nix:152:36:
+
+          151|         echo "Fixing re-exports in $tbd"
+          152|         substituteInPlace "$tbd" ${mkFrameworkSubs name deps}
+             |                                    ^
+          153|
+
+       … while evaluating the attribute 'installPhase' of the derivation 'apple-framework-CoreServices'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating the attribute 'buildInputs' of the derivation 'xcbuild-0.1.2-pre'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating the attribute 'buildCommand' of the derivation 'xcodebuild-0.1.2-pre'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating 'optionalString'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/lib/strings.nix:202:5:
+
+          201|     # String to return if condition is true
+          202|     string: if cond then string else "";
+             |     ^
+          203|
+
+       … from call site
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/build-support/trivial-builders.nix:415:12:
+
+          414|         cp ${script} $out/nix-support/setup-hook
+          415|       '' + lib.optionalString (deps != []) ''
+             |            ^
+          416|         printWords ${toString deps} > $out/nix-support/propagated-build-inputs
+
+       … while evaluating the attribute 'buildCommand' of the derivation 'hook'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating the attribute 'nativeBuildInputs' of the derivation 'libutil-47.30.1'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating the attribute 'buildInputs' of the derivation 'system_cmds-550.6'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating the attribute 'buildCommand' of the derivation 'sysctl-system_cmds-550.6'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating 'optionalString'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/lib/strings.nix:202:5:
+
+          201|     # String to return if condition is true
+          202|     string: if cond then string else "";
+             |     ^
+          203|
+
+       … from call site
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/development/python-modules/py-cpuinfo/default.nix:25:15:
+
+           24|   # On Darwin sysctl is used to read CPU information.
+           25|   postPatch = lib.optionalString stdenv.isDarwin ''
+             |               ^
+           26|     substituteInPlace cpuinfo/cpuinfo.py \
+
+       … while evaluating the attribute 'postPatch' of the derivation 'python3.9-py-cpuinfo-8.0.0'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating the attribute 'out.outPath'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/lib/customisation.nix:157:13:
+
+          156|             drvPath = assert condition; drv.${outputName}.drvPath;
+          157|             outPath = assert condition; drv.${outputName}.outPath;
+             |             ^
+          158|           };
+
+       … while evaluating the attribute 'propagatedBuildInputs' of the derivation 'python3.9-pytest-benchmark-3.2.2'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating the attribute 'out.outPath'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/lib/customisation.nix:157:13:
+
+          156|             drvPath = assert condition; drv.${outputName}.drvPath;
+          157|             outPath = assert condition; drv.${outputName}.outPath;
+             |             ^
+          158|           };
+
+       … while evaluating the attribute 'nativeBuildInputs' of the derivation 'python3.9-construct-2.10.67'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating the attribute 'out.outPath'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/lib/customisation.nix:157:13:
+
+          156|             drvPath = assert condition; drv.${outputName}.drvPath;
+          157|             outPath = assert condition; drv.${outputName}.outPath;
+             |             ^
+          158|           };
+
+       … while evaluating the attribute 'propagatedBuildInputs' of the derivation 'python3.9-brotlipy-0.7.0'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating the attribute 'out.outPath'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/lib/customisation.nix:157:13:
+
+          156|             drvPath = assert condition; drv.${outputName}.drvPath;
+          157|             outPath = assert condition; drv.${outputName}.outPath;
+             |             ^
+          158|           };
+
+       … while evaluating the attribute 'nativeBuildInputs' of the derivation 'python3.9-aiohttp-3.7.4.post0'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating the attribute 'out.outPath'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/lib/customisation.nix:157:13:
+
+          156|             drvPath = assert condition; drv.${outputName}.drvPath;
+          157|             outPath = assert condition; drv.${outputName}.outPath;
+             |             ^
+          158|           };
+
+       … while evaluating the attribute 'propagatedBuildInputs' of the derivation 'python3.9-black-21.9b0'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
+
+       … while evaluating the attribute 'buildInputs' of the derivation 'nix-shell'
+
+       at /nix/store/c3022962980lyz2nqg6fnwi4l1c11gby-nixpkgs-21.11pre320922.ee084c02040/nixpkgs/pkgs/stdenv/generic/make-derivation.nix:205:7:
+
+          204|     // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          205|       name =
+             |       ^
+          206|         let
