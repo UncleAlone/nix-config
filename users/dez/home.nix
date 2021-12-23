@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -30,9 +29,41 @@
     alacritty
 
     nodejs
+    nodePackages.npm
+    
     rnix-lsp
     clang-tools
     ccls
+
+    sbcl
+    racket
+    ghc
+    rustc
+    
+    wmctrl
+    glib
+
+    python38Full
+    # for eaf
+    python38Packages.pyqt5
+    python38Packages.pyqtwebengine
+    python38Packages.sip
+    python38Packages.qrcode
+    python38Packages.epc
+    python38Packages.retry
+
+    # eaf-filemanager
+    python38Packages.lxml
+
+    # eaf-system-monitor
+    python38Packages.psutil
+
+    # other
+    python38Packages.pip
+    python38Packages.qtawesome
+    python38Packages.percol
+
+    nyxt
   ];
 
   programs.git = {
@@ -78,8 +109,8 @@
       enable = true;
       plugins = [
         { name = "zsh-users/zsh-autosuggestions"; }
-	{ name = "zsh-users/zsh-syntax-highlighting"; }
-	{ name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
+	      { name = "zsh-users/zsh-syntax-highlighting"; }
+	      { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
       ];
     };
     initExtra = ''

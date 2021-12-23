@@ -2,7 +2,7 @@
   description = "My Personal System Configuration";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-21.05";
+    nixpkgs.url = "nixpkgs/nixos-21.11";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
@@ -40,7 +40,7 @@
         };
       };
     };
- 
+    
     nixosConfigurations = {
       nixos = lib.nixosSystem {
         inherit system pkgs;
