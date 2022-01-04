@@ -34,6 +34,9 @@
     rnix-lsp
     clang-tools
     ccls
+    cmake
+    gcc
+    gnumake
 
     sbcl
     racket
@@ -42,28 +45,11 @@
     
     wmctrl
     glib
-
-    python38Full
-    # for eaf
-    python38Packages.pyqt5
-    python38Packages.pyqtwebengine
-    python38Packages.sip
-    python38Packages.qrcode
-    python38Packages.epc
-    python38Packages.retry
-
-    # eaf-filemanager
-    python38Packages.lxml
-
-    # eaf-system-monitor
-    python38Packages.psutil
-
-    # other
-    python38Packages.pip
-    python38Packages.qtawesome
-    python38Packages.percol
-
     nyxt
+    
+    feh
+    unzip
+    p7zip
   ];
 
   programs.git = {
@@ -110,6 +96,7 @@
       plugins = [
         { name = "zsh-users/zsh-autosuggestions"; }
 	      { name = "zsh-users/zsh-syntax-highlighting"; }
+	      { name = "marlonrichert/zsh-autocomplete"; }
 	      { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
       ];
     };
@@ -120,4 +107,20 @@
     '';
   };
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
+  programs.aria2 = {
+    enable = true;
+    settings = {
+      dir = "/home/share";
+      max-connection-per-server = 5;
+      save-session-interval = 60;
+      enable-rpc = true;
+      rpc-allow-origin-all = true;
+      rpc-listen-all = true;
+    };
+  };
 }

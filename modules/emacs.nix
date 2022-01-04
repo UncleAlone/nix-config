@@ -24,6 +24,7 @@ let
     ];
   };
 
+  services.emacs.enable = true;
 in {
 
  # programs.emacs = {
@@ -51,23 +52,6 @@ in {
         default = true;
         type = lib.types.bool;
         description = "Enable an uncustomised exwm configuration.";
-      };
-      extraPackages = mkOption {
-        type = types.functionTo (types.listOf types.package);
-        default = epkgs: [];
-        defaultText = literalExpression "epkgs: []";
-        example = literalExpression ''
-          epkgs: [
-            epkgs.emms
-            epkgs.magit
-            epkgs.proofgeneral
-          ]
-        '';
-        description = ''
-          Extra packages available to Emacs. The value must be a
-          function which receives the attrset defined in
-          <varname>emacs.pkgs</varname> as the sole argument.
-        '';
       };
     };
   };

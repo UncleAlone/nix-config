@@ -1,0 +1,14 @@
+#+title: StumpWM Configuartion
+#+PROPERTY: header-args:lisp :tangle ~/.stumpwm.d/init.lisp :mkdirp yes
+
+#+begin_src lisp
+(in-package :stumpwm)
+
+(set-prefix-key (kbd "s-d"))
+
+(load-module "swm-gaps")
+(setf swm-gaps:*inner-gaps-size* 3)
+
+(run-commands "mode-line")
+(load-module "battery-portable")
+#+end_src

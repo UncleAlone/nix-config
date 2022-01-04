@@ -1,7 +1,7 @@
 { pkgs, ... }:
 with pkgs;
 let
-  my-python-packages = python3Packages: with python3Packages; [
+  my-python-packages = python38Packages: with python38Packages; [
     # for eaf
     pyqt5
     pyqtwebengine
@@ -20,8 +20,6 @@ let
     qtawesome
     percol
   ];
-  python-with-my-package = python3.withPackages my-python-packages;
+  python-with-my-packages = python38.withPackages my-python-packages;
 in
-{
-  python-with-my-package
-}
+python-with-my-packages

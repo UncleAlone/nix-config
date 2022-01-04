@@ -2,7 +2,7 @@
   description = "My Personal System Configuration";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-21.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
@@ -21,6 +21,7 @@
         neovim-nightly-overlay.overlay
         emacs-overlay.overlay
       ];
+      config.allowUnfree = true;
     };
 
     lib = nixpkgs.lib;
@@ -47,8 +48,7 @@
 
         modules = [
           ./system/configuration.nix
-          ./modules/emacs.nix
-          ./modules/exwmGcc.nix
+          ./modules/server.nix
         ];
 
       };

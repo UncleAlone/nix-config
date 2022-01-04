@@ -114,9 +114,10 @@ Same as above
   (setq display-time-day-and-date t)
   (add-hook 'exwm-init-hook
 	    (lambda ()
+	      (dashboard-refresh-buffer)
 	      (display-battery-mode +1) ;; Display battery info (if available).
 	      (display-time-mode +1)))  ;; Display the time in the modeline.
-   )
+  )
 
 (use-package dmenu)
 #+end_src
@@ -1361,6 +1362,12 @@ This program can be used *WITHOUT* evil-mode!
 (use-package nix-mode
   :mode "\\.nix\\'")
 #+end_src
+*** Common Lisp
+#+begin_src emacs-lisp
+(use-package slime
+  :config
+  (setq inferior-lisp-program "sbcl"))
+#+end_src
 
 ** Dap Debug Mode
 #+begin_src emacs-lisp
@@ -1571,12 +1578,23 @@ Clipetty is a minor mode for terminal (TTY) users that sends text that you kill 
   :config
   (require 'eaf-browser)
   (require 'eaf-pdf-viewer)
-  
+  (require 'eaf-video-player)
   (defalias 'browse-web #'eaf-open-browser)
   (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
   (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
   (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
 
+#+end_src
+* Emacs-Rime
+#+begin_src emacs-lisp
+(use-package rime
+  :custom
+  (default-input-method "rime")
+  :config
+  (setq rime-emacs-module-header-root
+	(concat (shell-command-to-string "nix eval --raw 'nixpkgs#emacs.outPath'") "/include")
+	rime-librime-root
+	(shell-command-to-string "nix eval --raw 'nixpkgs#librime.outPath'")))
 #+end_src
 * Load Plugings Based On Graphic Setting
 #+begin_src emacs-lisp

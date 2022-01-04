@@ -3,11 +3,14 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-
+let
+  python-with-my-packages = pkgs.callPackage ../modules/python.nix {};
+in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../modules/emacs.nix
     ];
   
   # Make ready for nix flakes
@@ -15,12 +18,13 @@
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
-
+  
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
+  networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
@@ -50,7 +54,18 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  
+
+  services.xserver.displayManager.defaultSession = "none+emacsWM";
+
+  services.xserver.windowManager = {
+    myExwm.enable = true;
+    stumpwm.enable = true;
+  };
+
+  programs.xss-lock = {
+    enable = true;
+    lockerCommand = "\"${pkgs.i3lock-fancy}/bin/i3lock-fancy\"";
+  };
 
   # Configure keymap in X11
   services.xserver.layout = "us";
@@ -75,28 +90,43 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  fonts.fonts = with pkgs; [
-    fira-code
-    jetbrains-mono
-    cantarell-fonts
-    emacs-all-the-icons-fonts
-    nerdfonts
-  ];
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.dez = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
-  
+
   nix.trustedUsers = [ "root" "dez" ];
+
+  services.jellyfin = {
+    enable = true;
+  };  
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     firefox
+    tdesktop
+    google-chrome
+    vlc
+    
+    librime
+
+    i3lock-fancy
+    python-with-my-packages
+  ] ++ (with libsForQt5;
+    [
+      kdeconnect-kde
+    ]);
+
+  fonts.fonts = with pkgs; [
+    fira-code
+    jetbrains-mono
+    cantarell-fonts
+    emacs-all-the-icons-fonts
+    nerdfonts
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -110,7 +140,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -125,5 +155,8 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 
+  environment.variables = {
+    QT_QPA_PLATFORM_PLUGIN_PATH = "${pkgs.qt5.qtbase.bin.outPath}/lib/qt-${pkgs.qt5.qtbase.version}/plugins";
+  };
 }
 
