@@ -13,42 +13,63 @@
 
   outputs = { self, nixpkgs, home-manager, emacs-overlay, neovim-nightly-overlay, ... }@inputs: 
   let
-    system = "x86_64-linux";
+    # system = "x86_64-linux";
     
-    pkgs = import nixpkgs {
-      inherit system;
-      overlays = with inputs;[
-        neovim-nightly-overlay.overlay
+    # pkgs = import nixpkgs {
+    #   inherit system;
+    #   overlays = with inputs;[
+    #     neovim-nightly-overlay.overlay
+    #     emacs-overlay.overlay
+    #   ];
+    #   config.allowUnfree = true;
+    # };
+
+    nixpkgsConfig = {
+      config = { allowUnfree = true; };
+      overlays = with inputs; [
         emacs-overlay.overlay
+        # nix-direnv.overlay
+        neovim-nightly-overlay.overlay
       ];
-      config.allowUnfree = true;
     };
+
 
     lib = nixpkgs.lib;
 
-  in {
-    homeManagerConfigurations = {
-      dez = home-manager.lib.homeManagerConfiguration {
-        inherit system pkgs;
-        username = "dez";
-        homeDirectory = "/home/dez/";
-        configuration = {
-          imports = [
-						./users/dez/home.nix
-            #./modules/desktop.nix
-            ./modules/nvim.nix
-          ];
-        };
-      };
-    };
+  in
+    {
+  #   homeManagerConfigurations = {
+  #     dez = home-manager.lib.homeManagerConfiguration {
+  #       inherit system pkgs;
+  #       username = "dez";
+  #       homeDirectory = "/home/dez/";
+  #       configuration = {
+  #         imports = [
+	#     ./users/dez/home.nix
+  #           ./modules/nvim.nix
+	#     ./emacs.nix
+  #         ];
+  #       };
+  #     };
+  #   };
     
     nixosConfigurations = {
       nixos = lib.nixosSystem {
-        inherit system pkgs;
+        # inherit system pkgs;
+        system = "x86_64-linux";
 
         modules = [
-          ./system/configuration.nix
-          ./modules/server.nix
+          ./system/nixos
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            users.users.dez.home = "/home/dez";
+            home-manager.users.dez = import ./home;
+
+            nixpkgs = nixpkgsConfig;
+          }
         ];
 
       };

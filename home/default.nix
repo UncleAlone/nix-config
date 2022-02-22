@@ -1,5 +1,10 @@
 { config, pkgs, ... }:
 {
+  imports = [
+    ./emacs.nix
+    ./nvim.nix
+  ];
+  
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -25,7 +30,6 @@
     direnv
     jump
 
-    kitty
     alacritty
 
     nodejs

@@ -13,16 +13,7 @@ let
     ''}
   '';
 
-  myEmacs = pkgs.emacsWithPackagesFromUsePackage {
-    config = ../demacs-nixos.org;
-    package = pkgs.emacsGcc;
-    alwaysEnsure = true;
-    alwaysTangle = true;
-
-    extraEmacsPackages = epkgs: [
-      epkgs.exwm
-    ];
-  };
+  myEmacs = pkgs.emacsGcc;
 
   services.emacs.enable = true;
 in {

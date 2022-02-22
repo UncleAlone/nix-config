@@ -4,21 +4,21 @@
 
 { config, pkgs, ... }:
 let
-  python-with-my-packages = pkgs.callPackage ../modules/python.nix {};
+  python-with-my-packages = pkgs.callPackage ./python.nix {};
 in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../modules/emacs.nix
+      #../modules/emacs.nix
     ];
-  
+
   # Make ready for nix flakes
   nix.package = pkgs.nixFlakes;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
-  
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -55,10 +55,10 @@ in
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  services.xserver.displayManager.defaultSession = "none+emacsWM";
+  #services.xserver.displayManager.defaultSession = "none+emacsWM";
 
   services.xserver.windowManager = {
-    myExwm.enable = true;
+    #myExwm.enable = true;
     stumpwm.enable = true;
   };
 
@@ -69,6 +69,7 @@ in
 
   # Configure keymap in X11
   services.xserver.layout = "us";
+  services.xserver.xkbVariant = "dvorak";
   # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable CUPS to print documents.
@@ -81,7 +82,7 @@ in
       naturalScrolling = true;
       disableWhileTyping = true;
     };
-  };    
+  };
 
   # Enable sound.
   sound.enable = true;
@@ -97,11 +98,11 @@ in
     shell = pkgs.zsh;
   };
 
-  nix.trustedUsers = [ "root" "dez" ];
+  nix.settings.trusted-users = [ "root" "dez" ];
 
   services.jellyfin = {
     enable = true;
-  };  
+  };
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -111,7 +112,7 @@ in
     tdesktop
     google-chrome
     vlc
-    
+
     librime
 
     i3lock-fancy
@@ -159,4 +160,3 @@ in
     QT_QPA_PLATFORM_PLUGIN_PATH = "${pkgs.qt5.qtbase.bin.outPath}/lib/qt-${pkgs.qt5.qtbase.version}/plugins";
   };
 }
-
